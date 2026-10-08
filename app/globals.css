@@ -1,0 +1,64 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+:root {
+  --bg: #02040A;
+  --surface: #0A0E17;
+  --border: #1A2332;
+  --primary: #00FF88;
+  --text: #FFFFFF;
+  --muted: #8B9BB4;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Inter', system-ui, sans-serif;
+  min-height: 100vh;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #0A0E17;
+}
+::-webkit-scrollbar-thumb {
+  background: #1A2332;
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #00FF88;
+}
+
+/* Buttons – only edge on buttons as requested */
+.btn {
+  @apply px-5 py-2.5 rounded-md font-medium transition-all duration-200;
+}
+.btn-primary {
+  @apply bg-primary text-black hover:bg-primaryDim;
+}
+.btn-outline {
+  @apply border border-primary text-primary hover:bg-primary/10;
+}
+.btn-ghost {
+  @apply text-muted hover:text-white hover:bg-white/5;
+}
+
+/* Clean inputs */
+.input {
+  @apply w-full bg-surface border border-border rounded-md px-4 py-2.5 text-white placeholder:text-muted focus:outline-none focus:border-primary transition-colors;
+}
+
+.card {
+  @apply bg-surface border border-border rounded-lg p-5;
+}
