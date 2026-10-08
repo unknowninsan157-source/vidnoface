@@ -1,7 +1,6 @@
 'use client';
 
 import { useState } from 'react';
-import { createClient } from '@/lib/supabase/client';
 import Header from '@/components/Header';
 import { useRouter } from 'next/navigation';
 
@@ -12,7 +11,6 @@ export default function LoginPage() {
   const [loading, setLoading] = useState(false);
   const [msg, setMsg] = useState('');
   const router = useRouter();
-  const supabase = createClient();
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -20,13 +18,16 @@ export default function LoginPage() {
     setMsg('');
 
     try {
+      const { createClient } = await import('@/lib/supabase/client');
+      const supabase = createClient();
+
       if (isSignUp) {
         const { error } = await supabase.auth.signUp({
           email,
           password,
           options: {
             data: {
-              region: 'IN', // default, user can change later
+              region: 'IN',
               trial_ends_at: new Date(Date.now() + 3 * 24 * 60 * 60 * 1000).toISOString(),
               trial_videos_used: 0,
               videos_left: 0,
@@ -43,7 +44,7 @@ export default function LoginPage() {
         router.refresh();
       }
     } catch (err: any) {
-      setMsg(err.message || 'Something went wrong');
+      setMsg(err.message || 'Something went wrong. (Supabase keys not set yet)');
     } finally {
       setLoading(false);
     }
